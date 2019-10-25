@@ -7,12 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>template is working</h1>
+   <h1>template is working</h1>
+   <button><a href="create">create post</a></button><br><br>
     {% for obj in object_list %}
-        {{obj.title}} <br>
+    
+       <a href="{{ obj.get_absolute_url }}"> {{obj.title}} </a><br>
         {{obj.content}} <br>
         {{obj.id}} <br>
         {{obj.update}} <br><br>
     {% endfor %}
+    
 </body>
+
 </html>
