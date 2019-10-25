@@ -7,12 +7,19 @@
     <title>Document</title>
 </head>
 <body>
+    {% if messages %}
+    <ul class="messages" >
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{% if "html_safe" in message.tags %}{{ message|safe }}{% else %}{{message}}{% endif %}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <h1>template is working</h1>
    
         {{obj.title}} <br>
         {{obj.content}} <br>
         {{obj.id}} <br>
         {{obj.update}} <br><br>
-        <button><a href="{% url "post_list" %}">back</a></button>
+        <button><a href="{% url "post_list" %}">back</a></button><br><br>
 </body>
 </html>

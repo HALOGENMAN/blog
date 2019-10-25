@@ -8,7 +8,7 @@ urlpatterns =[
     #path(r'^details/(?P<int:id>\d+)/$', views.post_details),
     #path(r'^(?P<album_id>[0-9])/$', views.post_details, name='details'),
     path("",views.post_list,name="post_list"),
-    path("update",views.post_update,name="post_home"),
-    path("delete",views.post_delete,name="post_home"),
+    path("<int:id>/update/",views.post_update,name="update"),
+    path("<int:id>/delete",views.post_delete,name="delete"),
     
 ]

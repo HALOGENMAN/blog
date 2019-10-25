@@ -1,11 +1,24 @@
-from django.shortcuts import render,get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render,get_object_or_404,redirect
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import Post
 from .forms import PostForms
+from django.contrib import messages
 
 # Create your views here.
-def post_update(request):
-   pass
+def post_update(request,id=None):
+    instance = get_object_or_404(Post,id=id)
+    form = PostForms(request.POST or None,instance=instance)#it is use for updating 
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.save()
+        messages.success(request,"<a href=" "> item </a> updated",extra_tags="html_safe")
+        return HttpResponseRedirect(instance.get_absolute_url())
+
+    context = {
+        "obj":instance,
+        "form":form
+    }
+    return render(request,"post_forms.html",context)
 
 def post_details(request,id=None):
     instance = get_object_or_404(Post,id=id)
@@ -20,12 +33,15 @@ def post_create(request):
         instance = form.save(commit=False)
         print(form.cleaned_data.get("title"))
         instance.save()
-    
+        messages.success(request,"Successifully Created")
+        return HttpResponseRedirect(instance.get_absolute_url())#important for redirecting
+    else:
+         messages.success(request,"not Successifully Created")
     #if request.method=="POST":
     #   title=request.POST.get("title")
     #    content=request.POST.get("content")
     #   Post.objects.create(title=title,content=content)
-    
+   
     context={
         "form":form,
     }
@@ -38,6 +54,9 @@ def post_list(request):
     }
     return render(request,"index.html",context)
 
-def post_delete(request):
-    return HttpResponse("<h1>shayak</h1>")
+def post_delete(request,id=None):
+    instance = get_object_or_404(Post,id=id)
+    instance.delete()
+    messages.success(request,"Successifully DLEATED")
+    return redirect("post_list")#in this it is redirecting by the use of name from url
 
