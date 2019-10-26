@@ -1,25 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    {% if messages %}
-    <ul class="messages" >
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{% if "html_safe" in message.tags %}{{ message|safe }}{% else %}{{message}}{% endif %}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <h1>template is working</h1>
+{% extends "base.html" %}
+
+{% block head_title %}
+{{obj.title}}|{{block.super}}
+{% endblock head_title %}
+
+{% block style %}
+    
+{% endblock style %}
+{% block content %}
+<div class="col-sm-6 col-sm-offset-3">
+    <h1>{{obj.title}} <small>{{obj.timestap}}</small></h1>
    
-        {{obj.title}} <br>
-        {{obj.content}} <br>
-        {{obj.id}} <br>
-        {{obj.update}} <br><br>
-        <button><a href="{% url "post_list" %}">back</a></button><br><br>
-</body>
-</html>
+         <br>
+        {{obj.content|linebreaks}} <br>
+      
+         <br><br>
+        <button class="btn btn-primary"><a style=" color:azure; text-decoration: none;" href="{% url "post_list" %}">back</a></button><br><br>
+</div>
+
+{% endblock %}

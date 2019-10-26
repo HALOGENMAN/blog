@@ -1,22 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-   <h1>template is working</h1>
-   <button><a href="create">create post</a></button><br><br>
-    {% for obj in object_list %}
-    
-       <a href="{{ obj.get_absolute_url }}"> {{obj.title}} </a><br>
-        {{obj.content}} <br>
-        {{obj.id}} <br>
-        {{obj.update}} <br><br>
-    {% endfor %}
-    
-</body>
+{% extends "base.html" %}
 
-</html>
+{% block content %}
+   
+  
+   <div class="col-sm-8 col-sm-offset-2">
+        <h1>template is working</h1>
+        <button class="btn btn-primary"><a style="color:white;text-decoration:none" href="create">create post</a></button><br><br>
+   <div class="row">
+    {% for obj in object_list %}
+  
+ 
+    
+            <div class="col-sm-12">
+              <div class="thumbnail">
+                <img src="..." alt="...">
+                <div class="caption">
+                  <h3><a href="{{ obj.get_absolute_url }}"> {{obj.title}} <small>{{obj.timestap|timesince}} ago </small> </a><br></h3>
+                  <p>{{obj.content|truncatechars:120}}</p>
+                  <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">VIEW</a></p>
+                </div>
+              </div>
+              <hr/>
+            </div>
+           
+    {% endfor %}
+            
+<div class="pagination">
+        <span class="step-links">
+            {% if object_list.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ object_list.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+            </span>
+    
+            {% if object_list.has_next %}
+                <a href="?page={{ object_list.next_page_number }}">next</a>
+                <a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+</div>
+{% endblock %}
