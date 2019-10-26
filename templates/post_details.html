@@ -5,10 +5,14 @@
 {% endblock head_title %}
 
 {% block style %}
-    
+   
 {% endblock style %}
 {% block content %}
 <div class="col-sm-6 col-sm-offset-3">
+    <br>
+    {% if obj.image %}
+    <img src="{{obj.image.url}}" class="img-responsive" alt="">
+    {% endif %}
     <h1>{{obj.title}} <small>{{obj.timestap}}</small></h1>
    
          <br>
