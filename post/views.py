@@ -5,7 +5,7 @@ from .forms import PostForms,create_userForm
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm#,LoginUserForm
 from django.core.paginator import Paginator
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,auth
 
 # Create your views here.
 def post_update(request,slug=None):
@@ -79,8 +79,19 @@ def post_delete(request,slug=None):
 #    return render(request, 'index.html', {'object_list': contacts})
 
 def login_user(request):
-    
-    return render(request,"login_user.html",context)
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = auth.authenticate(username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            messages.success(request,"login success")
+            return redirect("{% url 'post_list' %}")
+        else:
+            messages.success(request,"not able to login")
+            return render(request,"login.html",{})
+        
+    return render(request,"login.html",{})
 
 def create_user(request):
     if request.method == "POST":

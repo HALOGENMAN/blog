@@ -1,7 +1,5 @@
-from django.urls import path,re_path,include
+from django.urls import path,include
 from . import views 
-
-import django.contrib.auth.urls
 
 urlpatterns =[
     path("create",views.post_create,name="post_create"),
@@ -13,5 +11,5 @@ urlpatterns =[
     path("<slug>/update/",views.post_update,name="update"),
     path("<slug>/delete",views.post_delete,name="delete"),
     path("create_user",views.create_user,name="create_user"),
-    path("post/",include("django.contrib.auth.urls")),
+    path("login",views.login_user,name="login_user"),
 ]

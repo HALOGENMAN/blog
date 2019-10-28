@@ -3,11 +3,12 @@
 {% block content %}
 <div class="containers">
 <div class="col-sm-6 col-sm-offset-3">
-    <form action="{% url "login" %}" method="POST">{% csrf_token %}
+    <form action="login" method="POST">
         <br>
-        {{form.as_p}}
+        
+        <input type="text" placeholder="Username" name="username"><br><br>
+        <input type="password" placeholder="Password" name="password"><br><br>
         <input class="btn btn-primary" type="submit" value="login">
-        <button class="btn btn-primary"><a style=" color:azure; text-decoration: none;" href="{% url "post_list" %}">back</a></button>
     </form>
 </div>
 </div>

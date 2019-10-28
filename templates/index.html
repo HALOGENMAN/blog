@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-   
+
 
    <div class="col-sm-8 col-sm-offset-2">
         <h1>template is working</h1>
         <button class="btn btn-primary"><a style="color:white;text-decoration:none" href="create">create post</a></button>
+        <button class="btn btn-primary"><a style=" color:azure; text-decoration: none;" href="{% url "login_user" %}">login</a></button>
         <button class="btn btn-primary"><a style="color:white;text-decoration:none" href="{% url "create_user" %}">create User</a></button><br><br>
    <div class="row">
     {% for obj in object_list %}
