@@ -10,4 +10,4 @@ class PostForms(forms.ModelForm):
 class create_userForm(forms.ModelForm):
     class Meta:
         model = User
-        fields=["username","first_name"]
+        fields="__all__"

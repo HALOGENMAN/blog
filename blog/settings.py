@@ -120,6 +120,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_REDIRECT_URL="post_list"
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,"static"),
 ]

@@ -1,9 +1,11 @@
-from django.shortcuts import render,get_object_or_404,redirect
+from django.shortcuts import render,get_object_or_404,redirect,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Post
 from .forms import PostForms,create_userForm
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm#,LoginUserForm
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 
 # Create your views here.
 def post_update(request,slug=None):
@@ -76,9 +78,24 @@ def post_delete(request,slug=None):
 #    contacts = paginator.get_page(page)
 #    return render(request, 'index.html', {'object_list': contacts})
 
+def login_user(request):
+    
+    return render(request,"login_user.html",context)
+
 def create_user(request):
-    form = create_userForm(request.POST)
-    context = {
-        "form": form,
-    }
-    return render(request,"create_user.html",context)
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully')
+            
+        return redirect("post_list")
+        
+        
+    else:
+        form = UserCreationForm()
+        context = {
+            "form" : form,
+        }
+        return render(request,"create_form_user.html",context)
+

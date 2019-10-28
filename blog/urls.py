@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
-from django.conf.urls.static import static
+from django.conf.urls.static import static #this is also need to be learn
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include("post.urls")),
+    #path("post/",include("django.contrib.auth.urls")),# need to be learn
 ]
 
 if settings.DEBUG : #this is need to be remember for uploding images/files in our projects
