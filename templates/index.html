@@ -8,9 +8,6 @@
         <button class="btn btn-primary"><a style="color:white;text-decoration:none" href="create">create post</a></button><br><br>
    <div class="row">
     {% for obj in object_list %}
-  
- 
-    
             <div class="col-sm-12">
               <div class="thumbnail">
                 {% if obj.image %}
@@ -18,6 +15,9 @@
                 {% endif %}
                 <div class="caption">
                   <h3><a href="{{ obj.get_absolute_url }}"> {{obj.title}} <small>{{obj.timestap|timesince}} ago </small> </a><br></h3>
+                  {% if obj.user.get_full_name %}
+                    <p>Author:{{obj.user.get_full_name}}</p>
+                  {% endif %}
                   <p>{{obj.content|truncatechars:120}}</p>
                   <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">VIEW</a></p>
                 </div>
